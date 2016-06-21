@@ -1,0 +1,73 @@
+{
+  "id": "c1573af0-37b0-11e6-8e3f-ddb065832fbd",
+  "name": "DeployUaaSRepository",
+  "friendlyName": "ms-resource:loc.friendlyName",
+  "description": "ms-resource:loc.description",
+  "helpMarkDown": "ms-resource:loc.helpMarkDown",
+  "category": "Deploy",
+  "visibility": [
+    "Build",
+	"Release"
+  ],
+  "author": "Umbraco",
+  "version": {
+    "Major": 0,
+    "Minor": 2,
+    "Patch": 4
+  },
+  "demands": [
+    "msbuild",
+	"visualstudio"
+  ],
+  "minimumAgentVersion": "1.95.0",
+  "inputs": [
+    {
+      "name": "cloneurl",
+      "type": "string",
+      "label": "ms-resource:loc.input.label.cloneUrl",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "ms-resource:loc.input.help.cloneUrl"
+    },
+    {
+      "name": "uaasuser",
+      "type": "string",
+      "label": "ms-resource:loc.input.label.userName",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "ms-resource:loc.input.help.userName"
+    },
+	{
+      "name": "password",
+      "type": "string",
+      "label": "ms-resource:loc.input.label.password",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "ms-resource:loc.input.help.password"
+    },
+	{
+      "name": "sourcepath",
+      "type": "string",
+      "label": "ms-resource:loc.input.label.sourcepath",
+      "defaultValue": "$(Build.StagingDirectory)\\_Publish",
+      "required": true,
+      "helpMarkDown": "ms-resource:loc.input.help.sourcepath"
+    },
+	{
+      "name": "destinationpath",
+      "type": "string",
+      "label": "ms-resource:loc.input.label.destinationpath",
+      "defaultValue": "$(Build.StagingDirectory)\\_UaaS",
+      "required": true,
+      "helpMarkDown": "ms-resource:loc.input.help.destinationpath"
+    }
+  ],
+  "instanceNameFormat": "Restore Umbraco as a Service repository",
+  "execution": {
+    "PowerShell": {
+      "target": "$(currentDirectory)\\DeployToUaaS.ps1",
+      "argumentFormat": "",
+      "workingDirectory": "$(currentDirectory)"
+    }
+  }
+}

@@ -1,0 +1,66 @@
+{
+	"id": "c1573af0-37b0-11e6-8e3f-ddb065832fbd",
+	"name": "DeployUaaSRepository",
+	"friendlyName": "Deploy to Umbraco as a Service",
+	"description": "Deploy your Umbraco Visual Studio solution to Umbraco as a Service",
+	"helpMarkDown": "[More Information](https://github.com/umbraco/vsts-uaas-deploy-task)",
+	"category": "Deploy",
+	"visibility": ["Build",	"Release"],
+	"author": "Umbraco HQ",
+	"version": {
+		"Major": 0,
+		"Minor": 2,
+		"Patch": 4
+	},
+	"demands": ["msbuild",
+	"visualstudio"],
+	"minimumAgentVersion": "1.95.0",
+	"inputs": [{
+		"name": "cloneurl",
+		"type": "string",
+		"label": "Clone Url",
+		"defaultValue": "",
+		"required": true,
+		"helpMarkDown": "Clone Url for the Umbraco as a Service Project."
+	},
+	{
+		"name": "uaasuser",
+		"type": "string",
+		"label": "Username",
+		"defaultValue": "",
+		"required": true,
+		"helpMarkDown": "Username for the Umbraco as a Service git repository."
+	},
+	{
+		"name": "password",
+		"type": "string",
+		"label": "Password",
+		"defaultValue": "",
+		"required": true,
+		"helpMarkDown": "Password for the Umbraco as a Service git repository."
+	},
+	{
+		"name": "sourcepath",
+		"type": "string",
+		"label": "Source Path",
+		"defaultValue": "$(Build.StagingDirectory)\\_Publish",
+		"required": true,
+		"helpMarkDown": "Source Path for the Build output"
+	},
+	{
+		"name": "destinationpath",
+		"type": "string",
+		"label": "Destination Path",
+		"defaultValue": "$(Build.StagingDirectory)\\_UaaS",
+		"required": true,
+		"helpMarkDown": "Destination Path for cloning the repository"
+	}],
+	"instanceNameFormat": "Restore Umbraco as a Service repository",
+	"execution": {
+		"PowerShell": {
+			"target": "$(currentDirectory)\\DeployToUaaS.ps1",
+			"argumentFormat": "",
+			"workingDirectory": "$(currentDirectory)"
+		}
+	}
+}
