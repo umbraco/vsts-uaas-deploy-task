@@ -93,6 +93,10 @@ Get-ChildItem -Path $sourcepath | % { Copy-Item $_.fullname "$destinationpath" -
 #Change location to the Path where the UaaS repository is cloned
 Set-Location -Path $destinationpath
 
+#Silence warnings about LF/CRLF
+Write-Host "Silence warnings about LF/CRLF"
+git config core.safecrlf false
+
 #Commit the build output to the UaaS repository
 Write-Host "Current status of the UaaS repository"
 git status
