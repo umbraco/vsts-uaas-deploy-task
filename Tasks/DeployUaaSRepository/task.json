@@ -10,7 +10,7 @@
 	"version": {
 		"Major": 0,
 		"Minor": 2,
-		"Patch": 4
+		"Patch": 5
 	},
 	"demands": ["msbuild",
 	"visualstudio"],
@@ -55,7 +55,7 @@
 		"required": true,
 		"helpMarkDown": "Destination Path for cloning the repository"
 	}],
-	"instanceNameFormat": "Restore Umbraco as a Service repository",
+	"instanceNameFormat": "Deploy to Umbraco as a Service",
 	"execution": {
 		"PowerShell": {
 			"target": "$(currentDirectory)\\DeployToUaaS.ps1",
