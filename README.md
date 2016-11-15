@@ -1,12 +1,17 @@
 # Visual Studio Team Services Task
 ## Overview
-This repository contains a [Visual Studio Team Services (VSTS)](https://www.visualstudio.com/en-us/products/visual-studio-team-services-vs.aspx) task for deploying a Visual Studio Web Application project with Umbraco to [Umbraco as a Service](http://umbraco.com/cloud).
+This repository contains a [Visual Studio Team Services (VSTS)](https://www.visualstudio.com/en-us/products/visual-studio-team-services-vs.aspx) task for deploying a Visual Studio Web Application project with Umbraco to [Umbraco Cloud](http://umbraco.com/cloud).
 
 The following sections describes how to use this task in your own VSTS account, how to configure the Build and Deploy and finally how to setup a Visual Studio solution with Umbraco in order to successfully deploy it to Umbraco as a Service.
 
-The approach outlined here assumes that you have a VSTS account and an Umbraco as a Service project.
+The approach outlined here assumes that you have a VSTS account and an Umbraco Cloud project.
 
 **Please note that this is an early preview**, so this Deploy task is not yet available in the VSTS Marketplace and the setup requires a few manual steps.
+
+## Current limitations
+This deployment task only offers a one way deployment of your Umbraco based web application. This means that updates that are coming from Umbraco Cloud (including updates to meta data made in Development/Staging/Live, automatic updates to Umbraco Core, Forms and Umbraco Deploy) will need to be synchronized manually. So if Umbraco is auto-upgraded from something like version 7.5.3 to 7.5.4 then you will need to update the nuget package in your web application manually - for the time being.
+
+The idea for the future is that these updates will be part of the service for this task, so updates to Umbraco Core, Forms and Deploy are fed back to the "original" git repository as Pull Requests. Please note that there is currently no time-frame for this feature being part of Umbraco Cloud.
 
 ## How to use this Task
 
@@ -26,7 +31,7 @@ From your Build definition click "Add build step". From the "Add tasks" dialog y
 
 ![Add tasks](Images/Add-Task-Deploy.png)
 
-## Setting up Build and Deploy tasks for Umbraco as a Service
+## Setting up Build and Deploy tasks for Umbraco Cloud
 
 The idea with using the Deploy task from this repository is that we will be able to have a Visual Studio solution with Umbaco installed (through nuget) that is built in VSTS, and then use the build output for deploying the changes to Umbraco as a Service (through git).
 In order to achive this there is a minimal and recommended Build setup with the steps outlined below:
@@ -65,14 +70,14 @@ The "Source Path" is where the build output is published to and the "Destination
 
 ## Setting up Umbraco in Visual Studio
 
-Now that the Build and Deploy steps are configured we need to create a Visual Studio solution with a Web Application and install the UmbracoCms nuget, so we have something to deploy to the Umbraco as a Service Project.
+Now that the Build and Deploy steps are configured we need to create a Visual Studio solution with a Web Application and install the UmbracoCms nuget, so we have something to deploy to the Umbraco Cloud Project.
 
 In Visual Studio create a new and empty Web Application. Install the following nuget packages:
 ```
 Install-Package UmbracoCms
 Install-Package UmbracoForms
 ```
-The version of these packages should correspond to the version of Umbraco that you get with your Umbraco as a Service Project. This is typically the latest stable version. Clone the git repository for your Umbraco as a Service Project to double check if you are unsure of the correct version to use.
+The version of these packages should correspond to the version of Umbraco that you get with your Umbraco Cloud Project. This is typically the latest stable version. Clone the git repository for your Umbraco Cloud Project to double check if you are unsure of the correct version to use.
 
 Umbraco Deploy is currently not available as a nuget package, so you will need to download the release for Umbraco as a Service from [http://nightly.umbraco.org/?container=umbraco-deploy-release](http://nightly.umbraco.org/?container=umbraco-deploy-release) - download the zip with the latest version called Courier.Concorde.UI.vX.XX.X.zip (this is the version of Courier that targets Umbaco as a Service and is typically referred to as Umbraco Deploy).
 Unzip and copy the files to the root of the Web Application where Umbraco was installed (it's usually a good idea to copy the assemblies to a lib folder for reference in the Web Application project).
