@@ -115,7 +115,11 @@ So only thing left is then to add the publish xml file (mentioned in the previou
 Now that the Visual Studio solution is setup with Umbraco installed in a Web Application project you can go ahead and commit the solution to your own git repository and push to github, bitbucket or VSTS.
 In the VSTS Build definition you configure this repository to be built in the Get sources task (see screenshot below), and this will in turn be used to deploy your changes to Umbraco Cloud.
 
+### GitHub
+
 ![Example of configured GitHub source code repository](Images/VSTS-Github-Repository.png)
+
+### BitBucket
 
 ![Example of configured BitBucket source code repository](Images/VSTS-BitBucket-Repository.png)
 
