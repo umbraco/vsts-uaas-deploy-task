@@ -1,0 +1,16 @@
+{
+  "loc.friendlyName": "Deploy to an Umbraco Cloud Project",
+  "loc.helpMarkDown": "[More Information](https://github.com/umbraco/vsts-uaas-deploy-task)",
+  "loc.description": "Deploys the build output to an Umbraco Cloud Project.",
+  "loc.instanceNameFormat": "Deploy to Umbraco Cloud",
+  "loc.input.label.cloneUrl": "Clone url",
+  "loc.input.help.cloneUrl": "Url for the Umbraco Cloud Project's git repository.",
+  "loc.input.label.userName": "Username",
+  "loc.input.help.userName": "Username for the Umbraco Cloud Project's git repository",
+  "loc.input.label.password": "Password",
+  "loc.input.help.password": "Password for the Umbraco Cloud Project's git repository",
+  "loc.input.label.destinationpath": "Source",
+  "loc.input.help.destinationpath": "Source Path for the Build output",
+  "loc.input.label.destinationpath": "Destination",
+  "loc.input.help.destinationpath": "Destination Path for cloning the repository"
+}
