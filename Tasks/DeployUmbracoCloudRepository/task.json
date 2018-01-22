@@ -1,8 +1,8 @@
 {
 	"id": "c1573af0-37b0-11e6-8e3f-ddb065832fbd",
-	"name": "DeployUaaSRepository",
-	"friendlyName": "Deploy to Umbraco as a Service",
-	"description": "Deploy your Umbraco Visual Studio solution to Umbraco as a Service",
+	"name": "DeployUmbracoCloudRepository",
+	"friendlyName": "Deploy to Umbraco Cloud",
+	"description": "Deploy your Umbraco Visual Studio solution to Umbraco Cloud",
 	"helpMarkDown": "[More Information](https://github.com/umbraco/vsts-uaas-deploy-task)",
 	"category": "Deploy",
 	"visibility": ["Build",	"Release"],
@@ -10,7 +10,7 @@
 	"version": {
 		"Major": 0,
 		"Minor": 2,
-		"Patch": 5
+		"Patch": 6
 	},
 	"demands": ["msbuild",
 	"visualstudio"],
@@ -21,7 +21,7 @@
 		"label": "Clone Url",
 		"defaultValue": "",
 		"required": true,
-		"helpMarkDown": "Clone Url for the Umbraco as a Service Project."
+		"helpMarkDown": "Clone Url for the Umbraco Cloud Project."
 	},
 	{
 		"name": "uaasuser",
@@ -29,7 +29,7 @@
 		"label": "Username",
 		"defaultValue": "",
 		"required": true,
-		"helpMarkDown": "Username for the Umbraco as a Service git repository."
+		"helpMarkDown": "Username for the Umbraco Cloud git repository."
 	},
 	{
 		"name": "password",
@@ -37,7 +37,7 @@
 		"label": "Password",
 		"defaultValue": "",
 		"required": true,
-		"helpMarkDown": "Password for the Umbraco as a Service git repository."
+		"helpMarkDown": "Password for the Umbraco Cloud git repository."
 	},
 	{
 		"name": "sourcepath",
@@ -51,14 +51,14 @@
 		"name": "destinationpath",
 		"type": "string",
 		"label": "Destination Path",
-		"defaultValue": "$(Build.StagingDirectory)\\_UaaS",
+		"defaultValue": "$(Build.StagingDirectory)\\_UmbracoCloud",
 		"required": true,
 		"helpMarkDown": "Destination Path for cloning the repository"
 	}],
-	"instanceNameFormat": "Deploy to Umbraco as a Service",
+	"instanceNameFormat": "Deploy to Umbraco Cloud",
 	"execution": {
 		"PowerShell": {
-			"target": "$(currentDirectory)\\DeployToUaaS.ps1",
+			"target": "$(currentDirectory)\\DeployToUmbracoCloud.ps1",
 			"argumentFormat": "",
 			"workingDirectory": "$(currentDirectory)"
 		}

@@ -66,45 +66,45 @@ $invokeGit = {
     }
 }
 
-Write-Verbose "Entering script DeployToUaaS.ps1"
+Write-Verbose "Entering script DeployToUmbracoCloud.ps1"
 
 #Encode the credentials
 [Reflection.Assembly]::LoadWithPartialName("System.Web") | Out-Null
 $UsernameEncoded = [System.Web.HttpUtility]::UrlEncode($uaasuser)
 $PasswordEncoded = [System.Web.HttpUtility]::UrlEncode($password)
 
-#Construct the UaaS git url with credentials
+#Construct the Umbraco Cloud git url with credentials
 $currentRemoteUri = New-Object System.Uri $cloneurl
 $newRemoteUrlBuilder = New-Object System.UriBuilder($currentRemoteUri)
 $newRemoteUrlBuilder.UserName = $UsernameEncoded 
 $newRemoteUrlBuilder.Password = $PasswordEncoded
 
-#Ensure the path that the UaaS repository will be cloned to
+#Ensure the path that the Umbraco Cloud repository will be cloned to
 New-Item -ItemType Directory -Force -Path $destinationpath
 
-#Clone the UaaS repository
-Write-Host "Cloning UaaS repository..."
+#Clone the Umbraco Cloud repository
+Write-Host "Cloning Umbraco Cloud repository..."
 Invoke-Command -ScriptBlock $invokeGit -ArgumentList "Clone", @( "clone", $newRemoteUrlBuilder.ToString(), $destinationpath )
 
-#Copy the buildout to the UaaS repository excluding the umbraco and umbraco_client folders
-Write-Host "Copying Build output to the UaaS repository..."
+#Copy the buildout to the Umbraco Cloud repository excluding the umbraco and umbraco_client folders
+Write-Host "Copying Build output to the Umbraco Cloud repository..."
 Get-ChildItem -Path $sourcepath | % { Copy-Item $_.fullname "$destinationpath" -Recurse -Force -Exclude @("umbraco", "umbraco_client") }
 
-#Change location to the Path where the UaaS repository is cloned
+#Change location to the Path where the Umbraco Cloud repository is cloned
 Set-Location -Path $destinationpath
 
 #Silence warnings about LF/CRLF
 Write-Host "Silence warnings about LF/CRLF"
 git config core.safecrlf false
 
-#Commit the build output to the UaaS repository
-Write-Host "Current status of the UaaS repository"
+#Commit the build output to the Umbraco Cloud repository
+Write-Host "Current status of the Umbraco Cloud repository"
 git status
 git add -A
-git -c user.name="Umbraco as a Service" -c user.email="support@umbraco.io" commit -m "Committing build output from VSTS" --author="Umbraco as a Service <support@umbraco.io>"
+git -c user.name="Umbraco Cloud" -c user.email="support@umbraco.io" commit -m "Committing build output from VSTS" --author="Umbraco Cloud <support@umbraco.io>"
 
-#Push the added files to UaaS
-Write-Host "Deploying to UaaS..."
+#Push the added files to Umbraco Cloud
+Write-Host "Deploying to Umbraco Cloud..."
 Invoke-Command -ScriptBlock $invokeGit -ArgumentList "Push", @( "push", "origin", "master" )
 
 #Remove credentials from the configured remote
@@ -112,4 +112,4 @@ git remote set-url "origin" $cloneurl
 
 Write-Host "Deployment finished"
 
-Write-Verbose "Leaving script DeployToUaaS.ps1"
+Write-Verbose "Leaving script DeployToUmbracoCloud.ps1"
