@@ -37,7 +37,7 @@ $invokeGit = {
 
         Write-Verbose "[Git][$Reason] Begin"
         Write-Verbose "[Git][$Reason] gitPath=$gitPath"
-        Write-Host "git $arguments"
+        
         $process=Start-Process $gitPath -ArgumentList $ArgumentsList -NoNewWindow -PassThru -Wait -RedirectStandardError $gitErrorPath -RedirectStandardOutput $gitOutputPath
         $outputText=(Get-Content $gitOutputPath)
         $outputText | ForEach-Object {Write-Host $_}
